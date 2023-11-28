@@ -1,0 +1,2 @@
+REACT_APP_GEOCODING_URL=https://geocoding-api.open-meteo.com/v1/
+REACT_APP_WEATHER_URL=https://api.open-meteo.com/v1/
