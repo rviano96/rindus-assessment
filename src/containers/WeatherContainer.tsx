@@ -34,7 +34,7 @@ const WeatherContainer: React.FC = () => {
   const debouncedSearch = useDebounce<string>(searchText, 500);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const [coords, setCoords] = useState<Coords | null>(null);
@@ -114,7 +114,7 @@ const WeatherContainer: React.FC = () => {
         },
         (error) => {
           setError(error.message);
-        }
+        },
       );
     } else {
       setError("Geolocation is not supported.");
@@ -134,7 +134,7 @@ const WeatherContainer: React.FC = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchText(event.target.value);
     },
-    []
+    [],
   );
 
   return (

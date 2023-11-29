@@ -31,7 +31,7 @@ const errorResponse = (error: any) => {
 
 export const get = async <T>(
   url: string,
-  options: RequestOptions
+  options: RequestOptions,
 ): Promise<T> => {
   try {
     const api = createApiInstance(options);

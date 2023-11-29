@@ -20,7 +20,7 @@ type IconType =
   | typeof WiSnowflakeCold;
 
 const categorizeWeatherCode = (
-  weatherCode: number
+  weatherCode: number,
 ): { category: string; icon: IconType } => {
   // Codes come from: https://open-meteo.com/en/docs WMO Weather interpretation codes (WW) section
   const codeMappings: {

@@ -3,7 +3,7 @@ import { ICity } from "../types/City.interface";
 import { IWeather } from "../types/Weather.interface";
 
 export const searchCitiesByName = async (
-  cityName: string
+  cityName: string,
 ): Promise<ICity[]> => {
   try {
     const response = await get<ICity[]>(`search?name=${cityName}`, {

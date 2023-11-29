@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 //This can be done inside a helper.
 const useDebounce = <T>(value: T, delay: number): T | undefined => {
   const [debouncedValue, setDebouncedValue] = React.useState<T | undefined>(
-    value
+    value,
   );
 
   useEffect(() => {
