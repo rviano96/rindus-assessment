@@ -3,7 +3,7 @@ export interface ICurrentWeather {
   humidity: number;
   precipitation: number;
   weatherCode: number;
-  windWpeed: number;
+  windSpeed: number;
   windDirection: number;
   maxTemp: number;
   minTemp: number;

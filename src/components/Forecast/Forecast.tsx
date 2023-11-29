@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { IForecast } from "../../types/Forecast.interface";
 import {
   ForecastContainer,
@@ -12,6 +12,7 @@ import {
 } from "./Forecast.styles";
 import { Spinner } from "../../styles/Global.style";
 import categorizeWeatherCode from "../../utils/CategorizeWeatherCode";
+import { IconType } from "react-icons";
 
 interface ForecastProps {
   forecast: IForecast[] | undefined;
@@ -31,6 +32,9 @@ const Forecast: FC<ForecastProps> = ({ forecast, isLoading }) => {
     }
   };
 
+  const iconToReactNode = (icon: IconType): ReactNode =>
+    React.createElement(icon);
+
   return (
     <ForecastContainer>
       {isLoading ? (
@@ -40,12 +44,11 @@ const Forecast: FC<ForecastProps> = ({ forecast, isLoading }) => {
           <DayForecast key={index}>
             <DayContainer>{getDayOfWeek(day.time)}</DayContainer>
             <IconContainer>
-              {categorizeWeatherCode(day.weatherCode).category}
+              {iconToReactNode(categorizeWeatherCode(day.weatherCode).icon)}
             </IconContainer>
             <TempContainer>
               <MinContainer>{day.minTemp}°C</MinContainer>
               <MiddleContainer />
-              {/* <MiddleContainer>-----</MiddleContainer> */}
               <MaxContainer>{day.maxTemp}°C</MaxContainer>
             </TempContainer>
           </DayForecast>

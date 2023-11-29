@@ -11,6 +11,7 @@ export const ForecastContainer = styled.div`
   justify-content: center;
   min-height: 200px;
   width: 50%;
+  margin-left: 0.5rem;
 `;
 
 export const DayForecast = styled.div`

@@ -43,7 +43,7 @@ export const searchWeatherByCoords = async ({
         humidity: response.current.relative_humidity_2m,
         precipitation: response.current.precipitation,
         weatherCode: response.current.weather_code,
-        windWpeed: response.current.wind_speed_10m,
+        windSpeed: response.current.wind_speed_10m,
         windDirection: response.current.wind_direction_10m,
         maxTemp: response.daily.temperature_2m_max[0],
         minTemp: response.daily.temperature_2m_min[0],

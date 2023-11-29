@@ -6,6 +6,7 @@ import {
   Container,
   Dropdown,
   FlexContainer,
+  ForecastHourlyContainer,
   IconContainer,
   Input,
   InputContainer,
@@ -15,13 +16,14 @@ import {
 import { FaSearch } from "react-icons/fa";
 import useDebounce from "../utils/Debounce";
 import WeatherCard from "../components/Card/Card";
-import ForecastWeather from "../components/Forecast/Forecast";
+import Forecast from "../components/Forecast/Forecast";
 import {
   searchCitiesByName,
   searchWeatherByCoords,
 } from "../services/Weather.service";
 import { ICity } from "../types/City.interface";
 import { Spinner } from "../styles/Global.style";
+import AdditionalInfo from "../components/AdditionalInfo/AdditionalInfo";
 
 interface Coords {
   latitude: number;
@@ -173,15 +175,20 @@ const WeatherContainer: FC = () => {
           )}
         </Dropdown>
       </SearchContainer>
+
       <WeatherCard
         city={selectedCity?.name}
         currentWeather={weather?.current}
         isLoading={isLoading}
       />
-      <ForecastWeather
-        forecast={weather?.forecast}
-        isLoading={isLoading}
-      ></ForecastWeather>
+      <ForecastHourlyContainer>
+        <Forecast forecast={weather?.forecast} isLoading={isLoading} />
+        <AdditionalInfo
+          current={weather?.current}
+          hourly={weather?.hourly}
+          isLoading={isLoading}
+        />
+      </ForecastHourlyContainer>
     </Container>
   );
 };

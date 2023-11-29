@@ -81,3 +81,8 @@ export const FlexContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const ForecastHourlyContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
