@@ -9,7 +9,7 @@ import {
   MinContainer,
   MiddleContainer,
   MaxContainer,
-} from "./Forecast.styles";
+} from "./Hourly.styles";
 import { Spinner } from "../../styles/Global.style";
 import categorizeWeatherCode from "../../utils/CategorizeWeatherCode";
 

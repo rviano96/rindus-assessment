@@ -3,13 +3,21 @@ import { ICity } from "../types/City.interface";
 import { IWeather } from "../types/Weather.interface";
 
 export const searchCitiesByName = async (
-  cityName: string,
+  cityName: string
 ): Promise<ICity[]> => {
   try {
-    const response = await get<ICity[]>(`search?name=${cityName}`, {
+    const response = await get<any>(`search?name=${cityName}`, {
       baseURL: process.env.REACT_APP_GEOCODING_URL,
     });
-    return response;
+    const cities: ICity[] = response.results.map((elem: any) => ({
+      id: elem.id,
+      name: `${elem.name}, ${elem.admin1}`,
+      country: elem.country,
+      longitude: elem.longitude,
+      latitude: elem.latitude,
+    }));
+
+    return cities;
   } catch (error: any) {
     throw error;
   }

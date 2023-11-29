@@ -1,7 +1,7 @@
 export interface ICity {
-  id: number;
+  id?: number;
   name: string;
   latitude: number;
   longitude: number;
-  country: string;
+  country?: string;
 }

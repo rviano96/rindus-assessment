@@ -1,16 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { IWeather } from "../types/Weather.interface";
-// import { ICurrentWeather } from "../types/HourlyWeather.interface";
-// import { IForecastDay } from "../types/Forecast.interface";
+
 import {
   CloseIcon,
   Container,
+  Dropdown,
+  FlexContainer,
   IconContainer,
   Input,
   InputContainer,
+  Item,
   SearchContainer,
 } from "./WeatherContainer.styles";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
 import useDebounce from "../utils/Debounce";
 import WeatherCard from "../components/Card/Card";
@@ -20,60 +21,48 @@ import {
   searchWeatherByCoords,
 } from "../services/Weather.service";
 import { ICity } from "../types/City.interface";
+import { Spinner } from "../styles/Global.style";
 
 interface Coords {
   latitude: number;
   longitude: number;
 }
 
-const WeatherContainer: React.FC = () => {
+const WeatherContainer: FC = () => {
   const [weather, setWeather] = useState<IWeather>();
-  const [searchText, setSearchText] = React.useState<string>("");
-  const [isError, setIsError] = React.useState<boolean>(false);
-  const [isSearching, setIsSearching] = React.useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>("");
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const debouncedSearch = useDebounce<string>(searchText, 500);
   const [cities, setCities] = useState<ICity[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string | undefined>(
-    undefined,
+  const [selectedCity, setSelectedCity] = useState<ICity | undefined>(
+    undefined
   );
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const [coords, setCoords] = useState<Coords | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const getWeather = (latitude?: number, longitude?: number, city?: ICity) => {
-    setIsSearching(true);
+  const getWeather = (city: ICity) => {
+    setIsLoading(true);
     setIsError(false);
-    if (city) {
-      searchWeatherByCoords({
-        latitude: city.latitude,
-        longitude: city.longitude,
+
+    searchWeatherByCoords({
+      latitude: city.latitude,
+      longitude: city.longitude,
+    })
+      .then((response: IWeather) => {
+        setWeather(response);
       })
-        .then((response: IWeather) => {
-          setWeather(response);
-        })
-        .catch((e: Error) => {
-          console.log(e);
-          setIsError(true);
-          setError(e.message);
-        })
-        .finally(() => {
-          setIsSearching(false);
-        });
-    } else {
-      if (latitude && longitude) {
-        searchWeatherByCoords({ latitude, longitude })
-          .then((response: IWeather) => {
-            setWeather(response);
-          })
-          .catch((e: Error) => {
-            console.log(e);
-            setIsError(true);
-          })
-          .finally(() => {
-            setIsSearching(false);
-          });
-      }
-    }
+      .catch((e: Error) => {
+        console.log(e);
+        setIsError(true);
+        setError(e.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const getCities = (searchText?: string) => {
@@ -103,6 +92,7 @@ const WeatherContainer: React.FC = () => {
 
   const cancelSearch = () => {
     setSearchText("");
+    setShowDropdown(false);
   };
 
   useEffect(() => {
@@ -114,7 +104,7 @@ const WeatherContainer: React.FC = () => {
         },
         (error) => {
           setError(error.message);
-        },
+        }
       );
     } else {
       setError("Geolocation is not supported.");
@@ -125,17 +115,23 @@ const WeatherContainer: React.FC = () => {
     if (coords) {
       setIsSearching(true);
       setIsError(false);
-      setSelectedCity("Your current location");
-      getWeather(coords.latitude, coords.longitude);
+      setSelectedCity({ name: "Your current location", ...coords });
     }
   }, [coords]);
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchText(event.target.value);
+      setShowDropdown(event.target.value.length > 0);
     },
-    [],
+    []
   );
+
+  useEffect(() => {
+    if (selectedCity) {
+      getWeather(selectedCity);
+    }
+  }, [selectedCity]);
 
   return (
     <Container>
@@ -152,9 +148,40 @@ const WeatherContainer: React.FC = () => {
             onChange={handleInputChange}
           />
         </InputContainer>
+        <Dropdown visible={showDropdown}>
+          {isSearching && (
+            <FlexContainer>
+              <Spinner />
+            </FlexContainer>
+          )}
+
+          {!isSearching && !cities.length ? (
+            <FlexContainer>Oops.. Try with other location :) </FlexContainer>
+          ) : (
+            cities?.map((city: ICity, idx: number) => (
+              <Item
+                key={idx}
+                onClick={() => {
+                  setSelectedCity(city);
+                  cancelSearch();
+                }}
+              >
+                {" "}
+                {city.name}, {city.country}
+              </Item>
+            ))
+          )}
+        </Dropdown>
       </SearchContainer>
-      <WeatherCard city={selectedCity} currentWeather={weather?.current} />
-      <ForecastWeather forecast={weather?.forecast}></ForecastWeather>
+      <WeatherCard
+        city={selectedCity?.name}
+        currentWeather={weather?.current}
+        isLoading={isLoading}
+      />
+      <ForecastWeather
+        forecast={weather?.forecast}
+        isLoading={isLoading}
+      ></ForecastWeather>
     </Container>
   );
 };
