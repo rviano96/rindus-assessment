@@ -1,9 +1,10 @@
 export interface ICurrentWeather {
   temperature: number;
-  minTemp: number;
-  maxTemp: number;
-  description: string;
   humidity: number;
+  precipitation: number;
+  weatherCode: number;
   windWpeed: number;
-  type: string;
+  windDirection: number;
+  maxTemp: number;
+  minTemp: number;
 }

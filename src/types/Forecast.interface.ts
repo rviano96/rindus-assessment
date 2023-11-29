@@ -1,7 +1,6 @@
-export interface IForecastDay {
-  day: string;
+export interface IForecast {
+  time: string;
   minTemp: number;
   maxTemp: number;
-  description: string;
-  type: string;
+  weatherCode: string;
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import { IForecastDay } from "../../types/Forecast.interface";
+import { IForecast } from "../../types/Forecast.interface";
 import { ChartContainer, DayForecast } from "./Forecast.styles";
 
 interface ForecastProps {
-  forecast: IForecastDay[] | undefined;
+  forecast: IForecast[] | undefined;
 }
 
 const Forecast: React.FC<ForecastProps> = ({ forecast }) => {
@@ -11,7 +11,7 @@ const Forecast: React.FC<ForecastProps> = ({ forecast }) => {
     <ChartContainer>
       {forecast?.map((day, index) => (
         <DayForecast key={index}>
-          <span>{day.day}</span>
+          <span>{day.time}</span>
           <span>
             {day.minTemp}°C / {day.maxTemp}°C
           </span>

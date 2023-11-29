@@ -1,28 +1,36 @@
 import React from "react";
-import { Temperature, CardContainer, WeatherDescription } from "./Card.styles";
+import { SpanContainer, CardContainer, MaxMinContainer } from "./Card.styles";
 import { ICurrentWeather } from "../../types/CurrentWeather.interface";
+import categorizeWeatherCode from "../../utils/CategorizeWeatherCode";
 
 interface CardProps {
+  city: string | undefined;
   currentWeather: ICurrentWeather | undefined;
 }
 
-const Card: React.FC<CardProps> = ({ currentWeather }) => {
+const Card: React.FC<CardProps> = ({ city, currentWeather }) => {
   return (
-    <CardContainer>
-      {/* <WeatherIcon src={weather.iconUrl} alt={weather.description} /> */}
-      <Temperature>{currentWeather?.temperature}°C</Temperature>
-      <WeatherDescription>{currentWeather?.description}</WeatherDescription>
-
-      {/* <ForecastContainer>
-            {forecast.map((dayForecast, index) => (
-              <ForecastDay key={index}>
-                <span>{dayForecast.day}</span>
-                <span>{dayForecast.minTemp}°C / {dayForecast.maxTemp}°C</span>
-                <WeatherIcon src={dayForecast.iconUrl} alt={dayForecast.description} />
-              </ForecastDay>
-            ))}
-          </ForecastContainer> */}
-    </CardContainer>
+    <>
+      {currentWeather && city ? (
+        <CardContainer>
+          <SpanContainer>{city}</SpanContainer>
+          <SpanContainer>{currentWeather.temperature} °C</SpanContainer>
+          <SpanContainer secondary={true}>
+            {categorizeWeatherCode(currentWeather.weatherCode).category}
+          </SpanContainer>
+          <MaxMinContainer>
+            <SpanContainer marginright={"0.5rem"}>
+              Max: {currentWeather.maxTemp}
+            </SpanContainer>
+            <SpanContainer marginleft={"0.5rem"}>
+              Min: {currentWeather.minTemp}
+            </SpanContainer>
+          </MaxMinContainer>
+        </CardContainer>
+      ) : (
+        <div>There's no data available</div>
+      )}
+    </>
   );
 };
 

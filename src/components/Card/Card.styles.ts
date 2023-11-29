@@ -6,27 +6,26 @@ export const CardContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const WeatherIcon = styled.img`
   width: 50px;
 `;
 
-export const Temperature = styled.span`
+export const SpanContainer = styled.span<{
+  secondary?: boolean;
+  marginright?: string;
+  marginleft?: string;
+}>`
   font-size: 24px;
+  color: ${(props) => (props.secondary ? "#555" : "black")};
+  margin-left: ${(props) => (props.marginleft ? props.marginleft : "0px")};
+  margin-right: ${(props) => (props.marginright ? props.marginright : "0px")};
 `;
 
-export const WeatherDescription = styled.p`
-  font-size: 16px;
-  color: #555;
-`;
-
-export const ForecastContainer = styled.div`
-  margin-top: 16px;
-`;
-
-export const ForecastDay = styled.div`
+export const MaxMinContainer = styled.span`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  justify-content: center;
 `;
