@@ -34,12 +34,13 @@ export const TempContainer = styled.span`
 
 export const MaxContainer = styled.span`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 33%;
+  flex-direction: column;
 `;
 
 export const MiddleContainer = styled.span`
-  width: 25%;
+  width: 75%;
   border: 1px solid var(--color-light-gray);
   box-sizing: border-box;
   margin: auto;
@@ -47,8 +48,9 @@ export const MiddleContainer = styled.span`
 
 export const MinContainer = styled.span`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   width: 33%;
+  flex-direction: column;
 `;
 
 export const IconContainer = styled.span`

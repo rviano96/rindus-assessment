@@ -3,15 +3,15 @@ import { ICity } from "../types/City.interface";
 import { IWeather } from "../types/Weather.interface";
 
 export const searchCitiesByName = async (
-  cityName: string
+  cityName: string,
 ): Promise<ICity[]> => {
   try {
     const response = await get<any>(`search?name=${cityName}`, {
       baseURL: process.env.REACT_APP_GEOCODING_URL,
     });
-    const cities: ICity[] = response.results.map((elem: any) => ({
+    const cities: ICity[] = response.results?.map((elem: any) => ({
       id: elem.id,
-      name: `${elem.name}, ${elem.admin1}`,
+      name: `${elem.name}${elem.admin1 ? `, ${elem.admin1}` : ""}`,
       country: elem.country,
       longitude: elem.longitude,
       latitude: elem.latitude,
@@ -37,6 +37,8 @@ export const searchWeatherByCoords = async ({
       baseURL: process.env.REACT_APP_WEATHER_URL || "",
     });
 
+    const actualHour = new Date(response.current.time).getHours();
+
     const weatherOject: IWeather = {
       current: {
         temperature: response.current.temperature_2m,
@@ -55,7 +57,7 @@ export const searchWeatherByCoords = async ({
         weatherCode: response.daily.weather_code[index],
       })),
       hourly: response.hourly.time
-        .slice(0, 24)
+        .slice(actualHour, actualHour + 24)
         .map((time: string, index: number) => ({
           time,
           temperature: response.hourly.temperature_2m[index],

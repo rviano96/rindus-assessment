@@ -47,7 +47,7 @@ export const CloseIcon = styled(IoMdCloseCircleOutline)`
 `;
 
 export const Dropdown = styled.div<{
-  visible?: boolean;
+  $visible?: boolean;
 }>`
   position: absolute;
   top: 70%;
@@ -58,7 +58,7 @@ export const Dropdown = styled.div<{
   border: 1px solid var(--color-lighter-gray);
   border-radius: 5px;
   z-index: 1;
-  display: ${(props) => (props.visible ? "block" : "none")};
+  display: ${(props) => (props.$visible ? "block" : "none")};
   height: 200px;
   max-height: 200px;
   overflow-y: auto;

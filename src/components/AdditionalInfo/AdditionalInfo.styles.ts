@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ForecastContainer = styled.div`
+export const AdditionalInfoContainer = styled.div`
   background-color: var(--color-white);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -8,51 +8,58 @@ export const ForecastContainer = styled.div`
   margin-top: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   min-height: 200px;
   width: 50%;
   margin-left: 0.5rem;
 `;
 
-export const DayForecast = styled.div`
+export const HourlyContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  width: 100%;
+  overflow-x: scroll;
+  height: 125px;
+  border-radius: 9px;
+  box-shadow: 1px 1px 7px 5px rgba(0, 0, 0, 0.2);
 `;
 
-export const DayContainer = styled.span`
+export const Forecast = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  justify-content: space-around;
+`;
+
+export const Top = styled.span`
   display: flex;
   justify-content: center;
-  width: 25%;
 `;
 
-export const TempContainer = styled.span`
+export const Bottom = styled.span`
   display: flex;
   justify-content: space-around;
-  width: 33%;
 `;
 
-export const MaxContainer = styled.span`
-  display: flex;
-  justify-content: flex-end;
-  width: 33%;
-`;
-
-export const MiddleContainer = styled.span`
-  width: 25%;
-  border: 1px solid var(--color-light-gray);
-  box-sizing: border-box;
-  margin: auto;
-`;
-
-export const MinContainer = styled.span`
-  display: flex;
-  justify-content: flex-start;
-  width: 33%;
-`;
-
-export const IconContainer = styled.span`
+export const Medium = styled.span`
   display: flex;
   justify-content: center;
-  width: 42%;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 125px;
+  border-radius: 9px;
+  box-shadow: 1px 1px 7px 5px rgba(0, 0, 0, 0.2);
+  margin: 1rem;
+  justify-content: space-evenly;
 `;

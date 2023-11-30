@@ -18,15 +18,15 @@ export const WeatherIcon = styled.img`
 `;
 
 export const SpanContainer = styled.span<{
-  secondary?: boolean;
-  marginright?: string;
-  marginleft?: string;
+  $secondary?: boolean;
+  $marginright?: string;
+  $marginleft?: string;
 }>`
   font-size: 24px;
   color: ${(props) =>
-    props.secondary ? "var(--color-dark-gray)" : "var(--color-black)"};
-  margin-left: ${(props) => (props.marginleft ? props.marginleft : "0px")};
-  margin-right: ${(props) => (props.marginright ? props.marginright : "0px")};
+    props.$secondary ? "var(--color-dark-gray)" : "var(--color-black)"};
+  margin-left: ${(props) => (props.$marginleft ? props.$marginleft : "0px")};
+  margin-right: ${(props) => (props.$marginright ? props.$marginright : "0px")};
 `;
 
 export const MaxMinContainer = styled.span`

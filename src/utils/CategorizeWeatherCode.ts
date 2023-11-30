@@ -1,65 +1,118 @@
+import React, { ReactNode } from "react";
+
 import {
   WiDaySunny,
+  WiDaySunnyOvercast,
+  WiDayCloudy,
   WiCloudy,
-  WiRain,
-  WiSnow,
-  WiThunderstorm,
   WiFog,
-  WiShowers,
+  WiRainMix,
+  WiRainWind,
+  WiSnow,
+  WiRain,
   WiSnowflakeCold,
+  WiShowers,
+  WiThunderstorm,
 } from "react-icons/wi";
 
 type IconType =
-  | typeof WiDaySunny
+  | typeof WiRainMix
+  | typeof WiDaySunnyOvercast
+  | typeof WiDayCloudy
   | typeof WiCloudy
   | typeof WiRain
   | typeof WiSnow
-  | typeof WiThunderstorm
-  | typeof WiFog
   | typeof WiShowers
-  | typeof WiSnowflakeCold;
+  | typeof WiFog
+  | typeof WiRainWind
+  | typeof WiSnowflakeCold
+  | typeof WiThunderstorm
+  | typeof WiDaySunny;
 
-const categorizeWeatherCode = (
+export const categorizeWeatherCode = (
   weatherCode: number,
-): { category: string; icon: IconType } => {
+  size: string | number = 24,
+): { category: string; icon: ReactNode } => {
   // Codes come from: https://open-meteo.com/en/docs WMO Weather interpretation codes (WW) section
   const codeMappings: {
-    [key: number]: { category: string; icon: IconType };
+    [key: number]: {
+      category: string;
+      icon: ReactNode;
+    };
   } = {
-    0: { category: "Clear sky", icon: WiDaySunny },
-    1: { category: "Partly cloudy", icon: WiCloudy },
-    2: { category: "Partly cloudy", icon: WiCloudy },
-    3: { category: "Partly cloudy", icon: WiCloudy },
-    45: { category: "Fog", icon: WiFog },
-    48: { category: "Fog", icon: WiFog },
-    51: { category: "Drizzle", icon: WiRain },
-    53: { category: "Drizzle", icon: WiRain },
-    55: { category: "Drizzle", icon: WiRain },
-    56: { category: "Freezing Drizzle", icon: WiSnowflakeCold },
-    57: { category: "Freezing Drizzle", icon: WiSnowflakeCold },
-    61: { category: "Rain", icon: WiRain },
-    63: { category: "Rain", icon: WiRain },
-    65: { category: "Rain", icon: WiRain },
-    66: { category: "Freezing Rain", icon: WiSnowflakeCold },
-    67: { category: "Freezing Rain", icon: WiSnowflakeCold },
-    71: { category: "Snow fall", icon: WiSnow },
-    73: { category: "Snow fall", icon: WiSnow },
-    75: { category: "Snow fall", icon: WiSnow },
-    77: { category: "Snow grains", icon: WiSnow },
-    80: { category: "Rain showers", icon: WiShowers },
-    81: { category: "Rain showers", icon: WiShowers },
-    82: { category: "Rain showers", icon: WiShowers },
-    85: { category: "Snow showers", icon: WiSnow },
-    86: { category: "Snow showers", icon: WiSnow },
-    95: { category: "Thunderstorm", icon: WiThunderstorm },
-    96: { category: "Thunderstorm", icon: WiThunderstorm },
-    99: { category: "Thunderstorm", icon: WiThunderstorm },
+    0: { category: "Clear sky", icon: iconToReactNode(WiDaySunny, size) },
+    1: {
+      category: "Mainly clear",
+      icon: iconToReactNode(WiDaySunnyOvercast, size),
+    },
+    2: { category: "Partly cloudy", icon: iconToReactNode(WiDayCloudy, size) },
+    3: { category: "Overcast", icon: iconToReactNode(WiCloudy, size) },
+    45: { category: "Fog", icon: iconToReactNode(WiFog, size) },
+    48: { category: "Fog", icon: iconToReactNode(WiFog, size) },
+    51: { category: "Light drizzle", icon: iconToReactNode(WiRainMix, size) },
+    53: {
+      category: "Moderate drizzle",
+      icon: iconToReactNode(WiRainWind, size),
+    },
+    55: { category: "Dense drizzle", icon: iconToReactNode(WiRainWind, size) },
+    56: { category: "Freezing drizzle", icon: iconToReactNode(WiSnow, size) },
+    57: { category: "Freezing drizzle", icon: iconToReactNode(WiSnow, size) },
+    61: { category: "Slight rain", icon: iconToReactNode(WiRain, size) },
+    63: { category: "Moderate rain", icon: iconToReactNode(WiRain, size) },
+    65: { category: "Heavy rain", icon: iconToReactNode(WiRain, size) },
+    66: { category: "Freezing Rain", icon: iconToReactNode(WiRainMix, size) },
+    67: { category: "Freezing Rain", icon: iconToReactNode(WiRainMix, size) },
+    71: { category: "Snow fall", icon: iconToReactNode(WiSnowflakeCold, size) },
+    73: { category: "Snow fall", icon: iconToReactNode(WiSnowflakeCold, size) },
+    75: { category: "Snow fall", icon: iconToReactNode(WiSnowflakeCold, size) },
+    77: {
+      category: "Snow grains",
+      icon: iconToReactNode(WiSnowflakeCold, size),
+    },
+    80: {
+      category: "Slight showers",
+      icon: iconToReactNode(WiShowers, size),
+    },
+    81: {
+      category: "Moderate showers",
+      icon: iconToReactNode(WiShowers, size),
+    },
+    82: {
+      category: "Violent showers",
+      icon: iconToReactNode(WiShowers, size),
+    },
+    85: {
+      category: "Slight snow",
+      icon: iconToReactNode(WiSnowflakeCold, size),
+    },
+    86: {
+      category: "Heavy snow",
+      icon: iconToReactNode(WiSnowflakeCold, size),
+    },
+    95: {
+      category: "Thunderstorm",
+      icon: iconToReactNode(WiThunderstorm, size),
+    },
+    96: {
+      category: "Thunderstorm",
+      icon: iconToReactNode(WiThunderstorm, size),
+    },
+    99: {
+      category: "Thunderstorm",
+      icon: iconToReactNode(WiThunderstorm, size),
+    },
   };
   if (codeMappings.hasOwnProperty(weatherCode)) {
     return codeMappings[weatherCode];
   } else {
-    return { category: "Unknown", icon: WiDaySunny };
+    return {
+      category: "Unknown",
+      icon: iconToReactNode(WiThunderstorm, size),
+    };
   }
 };
 
-export default categorizeWeatherCode;
+const iconToReactNode = (
+  icon: IconType,
+  size: string | number = 24,
+): ReactNode => React.createElement(icon, { size });
