@@ -63,7 +63,7 @@ const AdditionalInfo: FC<AdditionalInfoProps> = ({
   return (
     <AdditionalInfoContainer>
       {isLoading ? (
-        <Spinner />
+        <Spinner data-testid="spinner" />
       ) : (
         <>
           {hourly && hourly.length > 0 ? (

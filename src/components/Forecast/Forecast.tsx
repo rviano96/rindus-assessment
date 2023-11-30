@@ -34,18 +34,24 @@ const Forecast: FC<ForecastProps> = ({ forecast, isLoading }) => {
   return (
     <ForecastContainer>
       {isLoading ? (
-        <Spinner />
+        <Spinner data-testid="spinner" />
       ) : forecast && forecast.length > 0 ? (
         forecast.map((day, index) => (
-          <DayForecast key={index}>
-            <DayContainer>{getDayOfWeek(day.time)}</DayContainer>
-            <IconContainer>
+          <DayForecast key={index} data-testid={`dayForecast`}>
+            <DayContainer data-testid={`dayCotainer`}>
+              {getDayOfWeek(day.time)}
+            </DayContainer>
+            <IconContainer data-testid={`iconContainer`}>
               {categorizeWeatherCode(day.weatherCode, 35).icon}
             </IconContainer>
-            <TempContainer>
-              <MinContainer>{Math.round(day.minTemp)}°</MinContainer>
-              <MiddleContainer />
-              <MaxContainer>{Math.round(day.maxTemp)}°</MaxContainer>
+            <TempContainer data-testid={`tempContainer`}>
+              <MinContainer data-testid={`minContainer`}>
+                {Math.round(day.minTemp)}°
+              </MinContainer>
+              <MiddleContainer data-testid={`middleContainer`} />
+              <MaxContainer data-testid={`maxContainer`}>
+                {Math.round(day.maxTemp)}°
+              </MaxContainer>
             </TempContainer>
           </DayForecast>
         ))

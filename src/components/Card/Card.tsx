@@ -14,7 +14,7 @@ const Card: FC<CardProps> = ({ city, currentWeather, isLoading }) => {
   return (
     <CardContainer>
       {isLoading ? (
-        <Spinner />
+        <Spinner data-testid="spinner" />
       ) : (
         <>
           {currentWeather && city ? (
