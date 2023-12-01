@@ -38,7 +38,7 @@ const WeatherContainer: FC = () => {
   const debouncedSearch = useDebounce<string>(searchText, 500);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedCity, setSelectedCity] = useState<ICity | undefined>(
-    undefined,
+    undefined
   );
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
@@ -99,7 +99,7 @@ const WeatherContainer: FC = () => {
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
     }
   }, []);
@@ -116,7 +116,7 @@ const WeatherContainer: FC = () => {
       setShowDropdown(event.target.value.length > 0);
       setIsSearching(true);
     },
-    [],
+    []
   );
 
   useEffect(() => {
@@ -153,6 +153,7 @@ const WeatherContainer: FC = () => {
             cities?.map((city: ICity, idx: number) => (
               <Item
                 key={idx}
+                data-testid={`dropdown-item-${idx}`}
                 onClick={() => {
                   setSelectedCity(city);
                   cancelSearch();
