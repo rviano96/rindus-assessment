@@ -8,12 +8,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
 }
 
-#root {
-  height: 100%;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -26,5 +22,4 @@ code {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  height: 100%;
 }
