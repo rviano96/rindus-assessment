@@ -1,3 +1,6 @@
+# Live app
+Visit https://rindus-weather-app.onrender.com/ to see the app live.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -15,6 +18,7 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 Add an env file called .env in the project directory. You can copy and past the file .env.example and rename it to .env
+
 
 ### `npm test`
 

@@ -3,7 +3,7 @@ import { ICity } from "../types/City.interface";
 import { IWeather } from "../types/Weather.interface";
 
 export const searchCitiesByName = async (
-  cityName: string,
+  cityName: string
 ): Promise<ICity[]> => {
   try {
     const response = await get<any>(`search?name=${cityName}`, {
@@ -60,8 +60,8 @@ export const searchWeatherByCoords = async ({
         .slice(actualHour, actualHour + 24)
         .map((time: string, index: number) => ({
           time,
-          temperature: response.hourly.temperature_2m[index],
-          weatherCode: response.hourly.weather_code[index],
+          temperature: response.hourly.temperature_2m[index + actualHour],
+          weatherCode: response.hourly.weather_code[index + actualHour],
         })),
     };
 

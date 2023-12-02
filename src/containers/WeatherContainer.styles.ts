@@ -84,5 +84,8 @@ export const FlexContainer = styled.div`
 
 export const ForecastHourlyContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  @media (max-width: 780px) {
+    flex-direction: column;
+  }
 `;

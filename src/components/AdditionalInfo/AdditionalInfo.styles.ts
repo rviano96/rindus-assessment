@@ -10,8 +10,13 @@ export const AdditionalInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   min-height: 200px;
-  width: 50%;
-  margin-left: 0.5rem;
+  flex: 1 0 45%;
+  max-width: 45%;
+  overflow-x: hidden;
+  @media (max-width: 780px) {
+    /* flex: 1 0 90%; */
+    max-width: 100%;
+  }
 `;
 
 export const HourlyContainer = styled.div`
@@ -56,7 +61,8 @@ export const Container = styled.div`
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  width: 25%;
+  flex: 1 0 27%;
+  width: 27%;
   height: 125px;
   border-radius: 9px;
   box-shadow: 1px 1px 7px 5px rgba(0, 0, 0, 0.2);

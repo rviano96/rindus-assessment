@@ -13,6 +13,11 @@ import {
   WiSnowflakeCold,
   WiShowers,
   WiThunderstorm,
+  //--Night icons--//
+  WiNightClear,
+  WiNightAltCloudy,
+  WiNightAltPartlyCloudy,
+  WiNightFog,
 } from "react-icons/wi";
 
 type IconType =
@@ -27,11 +32,16 @@ type IconType =
   | typeof WiRainWind
   | typeof WiSnowflakeCold
   | typeof WiThunderstorm
+  | typeof WiNightClear
+  | typeof WiNightFog
+  | typeof WiNightAltCloudy
+  | typeof WiNightAltPartlyCloudy
   | typeof WiDaySunny;
 
 export const categorizeWeatherCode = (
   weatherCode: number,
   size: string | number = 24,
+  night: boolean = false
 ): { category: string; icon: ReactNode } => {
   // Codes come from: https://open-meteo.com/en/docs WMO Weather interpretation codes (WW) section
   const codeMappings: {
@@ -40,15 +50,33 @@ export const categorizeWeatherCode = (
       icon: ReactNode;
     };
   } = {
-    0: { category: "Clear sky", icon: iconToReactNode(WiDaySunny, size) },
+    0: {
+      category: "Clear sky",
+      icon: iconToReactNode(night ? WiNightClear : WiDaySunny, size),
+    },
     1: {
       category: "Mainly clear",
-      icon: iconToReactNode(WiDaySunnyOvercast, size),
+      icon: iconToReactNode(
+        night ? WiNightAltCloudy : WiDaySunnyOvercast,
+        size
+      ),
     },
-    2: { category: "Partly cloudy", icon: iconToReactNode(WiDayCloudy, size) },
-    3: { category: "Overcast", icon: iconToReactNode(WiCloudy, size) },
-    45: { category: "Fog", icon: iconToReactNode(WiFog, size) },
-    48: { category: "Fog", icon: iconToReactNode(WiFog, size) },
+    2: {
+      category: "Partly cloudy",
+      icon: iconToReactNode(night ? WiNightAltPartlyCloudy : WiDayCloudy, size),
+    },
+    3: {
+      category: "Overcast",
+      icon: iconToReactNode(night ? WiNightAltCloudy : WiCloudy, size),
+    },
+    45: {
+      category: "Fog",
+      icon: iconToReactNode(night ? WiNightFog : WiFog, size),
+    },
+    48: {
+      category: "Fog",
+      icon: iconToReactNode(night ? WiNightFog : WiFog, size),
+    },
     51: { category: "Light drizzle", icon: iconToReactNode(WiRainMix, size) },
     53: {
       category: "Moderate drizzle",
@@ -114,5 +142,5 @@ export const categorizeWeatherCode = (
 
 const iconToReactNode = (
   icon: IconType,
-  size: string | number = 24,
+  size: string | number = 24
 ): ReactNode => React.createElement(icon, { size });

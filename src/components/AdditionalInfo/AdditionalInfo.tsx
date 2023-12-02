@@ -33,12 +33,16 @@ const AdditionalInfo: FC<AdditionalInfoProps> = ({
     } else {
       const formattedHour = new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
-        minute: "numeric",
         hour12: false,
       }).format(inputDate);
 
       return formattedHour;
     }
+  };
+
+  const isNight = (dateString: string): boolean => {
+    const hour = getHour(dateString, 1);
+    return hour >= "19" || hour < "07";
   };
 
   const degreesToCardinal = (degrees: number): string => {
@@ -72,7 +76,13 @@ const AdditionalInfo: FC<AdditionalInfoProps> = ({
                 <Forecast key={index}>
                   <Top>{getHour(hour.time, index)}</Top>
                   <Medium>
-                    {categorizeWeatherCode(hour.weatherCode, 35).icon}
+                    {
+                      categorizeWeatherCode(
+                        hour.weatherCode,
+                        35,
+                        isNight(hour.time)
+                      ).icon
+                    }
                   </Medium>
                   <Bottom>{Math.round(hour.temperature)}°</Bottom>
                 </Forecast>

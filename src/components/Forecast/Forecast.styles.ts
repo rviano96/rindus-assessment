@@ -10,8 +10,11 @@ export const ForecastContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 200px;
-  width: 50%;
-  margin-right: 0.5rem;
+  flex: 1 0 45%;
+  max-width: 45%;
+  @media (max-width: 780px) {
+    max-width: 100%;
+  }
 `;
 
 export const DayForecast = styled.div`
