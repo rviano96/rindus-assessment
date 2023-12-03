@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # Live app
 Visit https://rindus-weather-app.onrender.com/ to see the app live.
 
-# How to run in locally
+# How to run it locally
 Add an env file called .env in the project directory. You can copy and past the file .env.example and rename it to .env
 Run those commands: 
 ### `npm install` 
